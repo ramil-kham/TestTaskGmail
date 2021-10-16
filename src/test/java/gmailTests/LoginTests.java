@@ -1,5 +1,6 @@
 package gmailTests;
 
+
 import gmailPages.Login;
 import gmailPages.SendMessage;
 import io.qameta.allure.Epic;
@@ -11,6 +12,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -60,7 +65,7 @@ public class LoginTests {
         sendMessage.send();
         Thread.sleep(3000);
         List<WebElement> countAfterSend = webDriver.findElements(By.xpath("//*[@class='bog']//span[contains(text(), 'Simbirsoft')]"));
-        int countOfMessagesAfterSend = count.size();
-        Assertions.assertNotEquals(countOfMessages+1,countOfMessagesAfterSend);
+        int countOfMessagesAfterSend = countAfterSend.size();
+        Assertions.assertEquals(countOfMessages+1,countOfMessagesAfterSend);
     }
 }
