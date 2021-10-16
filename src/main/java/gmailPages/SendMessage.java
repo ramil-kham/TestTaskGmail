@@ -37,11 +37,7 @@ public class SendMessage {
     }
 
     public void inputMessageSubject() {
-        messageSubject.sendKeys("Simbirsoft Test task Khamidullin");
-    }
-
-    public void inputMessageText() {
-        messageText.sendKeys("Simbirsoft Test task. Khamidullin");
+        messageSubject.sendKeys("Simbirsoft Тестовое задание. Khamidullin");
     }
 
     public void send(){

@@ -2,10 +2,11 @@ package gmailTests;
 
 import gmailPages.Login;
 import gmailPages.SendMessage;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Step;
+import io.qameta.allure.Story;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,6 +15,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+//@Epic("Gmail")
+//@Story("Story")
+//@Feature("Feature")
 public class LoginTests {
 
     WebDriver webDriver;
@@ -31,11 +35,12 @@ public class LoginTests {
         webDriver.get("https://www.google.com/intl/ru/gmail/about/");
     }
 
-//    @AfterAll
-//    void quit() {
-//        webDriver.quit();
-//    }
+    @AfterEach
+    void tearDown() {
+        webDriver.quit();
+    }
 
+//    @Step("Авторизация и отправка письма")
     @Test
     public void loginAuthorizationTests() throws InterruptedException {
         login.signIn();
@@ -47,12 +52,15 @@ public class LoginTests {
         Assertions.assertEquals("https://mail.google.com/mail/u/0/#inbox", webDriver.getCurrentUrl());
         List<WebElement> count = webDriver.findElements(By.xpath("//*[@class='bog']//span[contains(text(), 'Simbirsoft')]"));
         int countOfMessages = count.size();
-        Assertions.assertEquals(3,countOfMessages);
+        Assertions.assertNotNull(countOfMessages);
         sendMessage.writeMessage();
         sendMessage.inputRecipient();
         sendMessage.inputMessageSubject();
         webDriver.findElement(By.xpath("//*[@class='Am Al editable LW-avf tS-tW']")).sendKeys(String.valueOf(countOfMessages));
         sendMessage.send();
-        webDriver.quit();
+        Thread.sleep(3000);
+        List<WebElement> countAfterSend = webDriver.findElements(By.xpath("//*[@class='bog']//span[contains(text(), 'Simbirsoft')]"));
+        int countOfMessagesAfterSend = count.size();
+        Assertions.assertNotEquals(countOfMessages+1,countOfMessagesAfterSend);
     }
 }
