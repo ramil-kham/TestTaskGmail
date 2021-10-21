@@ -13,9 +13,6 @@ public class Login {
         this.webDriver = webDriver;
     }
 
-    @FindBy(css = "a.button.button--medium.button--mobile-before-hero-only")
-    private WebElement signIn;
-
     @FindBy(id = "identifierId")
     private WebElement email;
 
@@ -28,15 +25,11 @@ public class Login {
     @FindBy(xpath = "//*[@id='passwordNext']/div/button/span")
     private WebElement passwordFurther;
 
-    public void signIn() {
-        signIn.click();
-    }
-
     public void inputMail(String mail) {
         email.sendKeys(mail);
     }
 
-    public void emailFurther() {
+    public void emailSend() {
         emailFurther.click();
     }
 
@@ -44,7 +37,7 @@ public class Login {
         password.sendKeys(pwd);
     }
 
-    public void pwdFurther() {
+    public void passwordSend() {
         passwordFurther.click();
     }
 }

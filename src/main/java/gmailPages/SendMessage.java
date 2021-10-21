@@ -1,9 +1,11 @@
 package gmailPages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import java.util.List;
 
 public class SendMessage {
     WebDriver webDriver;
@@ -32,16 +34,32 @@ public class SendMessage {
         write.click();
     }
 
-    public void inputRecipient() {
-        recipient.sendKeys("rkhamidullin3@gmail.com");
+    public void inputRecipient(String mail) {
+        recipient.sendKeys(mail);
     }
 
-    public void inputMessageSubject() {
-        messageSubject.sendKeys("Simbirsoft Тестовое задание. Khamidullin");
+    public void inputMessageSubject(String subject) {
+        messageSubject.sendKeys(subject);
     }
 
     public void send(){
         sendMessage.click();
     }
 
+    public int searchMails() {
+        List<WebElement> count = webDriver.findElements(By.xpath("//*[@class='bog']//span[contains(text(), 'Simbirsoft')]"));
+        return count.size();
+    }
+
+    public void inputMessageText(String content) {
+        messageText.sendKeys(String.valueOf(searchMails()));
+    }
+
+    public void writeMail(String mail, String subject, String content) {
+        writeMessage();
+        inputRecipient(mail);
+        inputMessageSubject(subject);
+        inputMessageText(content);
+        send();
+    }
 }
