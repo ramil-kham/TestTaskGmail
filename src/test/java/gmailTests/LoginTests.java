@@ -38,7 +38,7 @@ public class LoginTests {
 
     @Step("Авторизация и отправка письма")
     @Test
-    public void loginAuthorizationTests() throws InterruptedException {
+    public void loginAuthorizationTests() {
         login.inputMail(ConfigProperties.getProperty("mail"));
         login.emailSend();
         login.inputPassword(ConfigProperties.getProperty("password"));
